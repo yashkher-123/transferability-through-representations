@@ -17,6 +17,7 @@ env/
 *.xls
 *.jsonl
 *.nc
+*.zarr
 
 # python cache
 __pycache__/
