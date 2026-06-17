@@ -19,6 +19,9 @@ env/
 *.nc
 *.zarr
 
+data/pyromes/
+data/Terrestrial Ecoregions of the World/
+
 # python cache
 __pycache__/
 *.pyc
