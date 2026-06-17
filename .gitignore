@@ -21,6 +21,7 @@ env/
 
 data/pyromes/
 data/Terrestrial Ecoregions of the World/
+data/seasfire_pyromes_ecoregions.zarr/
 
 # python cache
 __pycache__/
