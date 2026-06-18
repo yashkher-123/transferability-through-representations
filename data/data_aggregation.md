@@ -13,14 +13,6 @@ Spatiootemporal res: 8 days, 0.25 degrees
 -   Fire descriptors - FWI, FRP, burned area
 
 
-## Regime Mask
-### https://www.nature.com/articles/s43247-023-00881-8
-This dataset has created 62 different regions where they defined spatially separable wildfire regimes/domains
-- ex: california chaparral, south afrcan fybnos
-- each to create transfer matrix, wildfire models need to be trained on fires solely from their domain, this mask defines the domains
-- need to hold out some regimes for eval later
-
-
 ## Pyromes
 ### https://www.pnas.org/doi/10.1073/pnas.1211466110
 This dataset defines 5 unique non-contiguous wildfire regimes
@@ -28,15 +20,36 @@ This dataset defines 5 unique non-contiguous wildfire regimes
 - should find that models trained on domains from the same pyrome transfer well (close in embedding space) during eval
 
 
+## Wildfire Drivers
+### https://pmc.ncbi.nlm.nih.gov/articles/PMC2662419/
+This study found the strognest wildfire predictor variables
+- Net Primary Productivity (biomass) is the #1 characterizer of fire dynamics
+- Next were seasonal temperature indicators (mean temp warmest month, mean temp wettest month, temp seasonality)
+- Annual precipitation was also an important variable for predicting fires
+- Human footprint surprisingly had little impact
+Since most of these variables were not explicitly available in the seasfire cube, needed to be practical about choosing regime descriptors for clustering
+- NDVI and NPP are both proxies for fuel load, they are just measured in different ways
+- mean temp takes the place of seasonal temperatures for simplicity
+- Total precipitation stayed the same
+- VPD and FWI were also added as descriptors because they are strong wildfire predictors, but they were not used in the study
+
+
+## On getting getting the wildfire domains:
+### https://zenodo.org/records/13834057
+This paper was originally going to be used to get a mask of 62 wildfire regimes globally. 
+This would allow for a literature-backed way of defining a wildfire domain to create the transfer matrix. 
+Domains within a single pyrome could also be tested by the embedding model to see if their locations in the embedding space are nearby. 
+However, their data/mask was unavailable (the github repo link was broken and I couldn't find their data elsewhere). I tried contacting the authors, but no response. 
+Because of this, I had to create my own set of wildfire domains using the WWF TEOW (~800 global ecoregions), and then cluster them based on wildfire characterizers.
+
+
+
 
 ## Steps:
 1. Download seasfire cube dataset
-2. leave it as a zip, use zarr, xarr, and other libraries to create two subsets of the entire dataset:
-    - only has fires from 2011-2021 with BA/FRP>0 to train predictor models for transfer matrix
-        - since this is a cube file and not just a record of wildfires, most cell are non fire, so a wildfire predictor model will perform poorly
-    - only has cells from 2011-2021 to get aggregate stats per feature for inputs for encoder model
-        - use data from a decade rather than full 20 years to keep sufficient window for stable per-regime statistics, a smaller timeframe mitigates drift
-3. export new, filtered datasets, delete oringinal dataset to save space on computer
-4. for each of the 2 subset datasets:
-    - add a feature to each cell for domain using regime mask
-    - add a feature to each cell for pyrome using pyrome mask
+2. leave it as a zip, use zarr, xarr, and other libraries to create a new subset of the original cube:
+    - New subset only has fires from 2011-2021 (decreasing temporal window mitigates feature distribution shift over time)
+4. for the subset dataset, apply the 5 pyrome mask to classify each cell into a pyrome (or none if the pyrome doesn't cover that cell)
+5. Create 50 wildfire domains through spatially-constrained agglomerative clustering using (mean, std) from the characterizers from the wildfire drivers paper.
+    - Now every cell has been mapped to a pyrome and a domain
+6. Select every cell where burned area is nonzero (a fire occurred), and add that cell as a row to a csv.
