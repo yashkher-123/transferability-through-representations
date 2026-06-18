@@ -53,3 +53,24 @@ Because of this, I had to create my own set of wildfire domains using the WWF TE
 5. Create 50 wildfire domains through spatially-constrained agglomerative clustering using (mean, std) from the characterizers from the wildfire drivers paper.
     - Now every cell has been mapped to a pyrome and a domain
 6. Select every cell where burned area is nonzero (a fire occurred), and add that cell as a row to a csv.
+
+
+
+
+data folder files:
+- clustering.ipynb - agglomerative clustering process
+- agglomeration_clustering_setup.ipynb - get stats per descriptor variable before clustering
+- getting_pyromes_ecoregions.ipynb - map 5 pyromes to each cell
+- subset_generation.ipynb - slice dataset temporally (2011-2021)
+
+- ecoregions_stats.csv - stats (mean,std) per descriptor variable for each ~800 ecoregion
+- fire_events.csv - each row is a fire (gwis_ba>0) cell in sliced dataset, containing domain/pyrome
+
+- domains_map.png - image of all the clustered domains across the globe
+
+- ecoregion_domains.zarr - contains mapping of clustered domains across globe
+- Terrestrial Ecoregions of the World.zip - contains mapping of WWF TEOW ~800 ecoregions
+- pyromes.zip - contains mapping of 5 pyromes
+- seasfire_pyromes_ecoregions.zarr - sliced cube with 5 pyrome mapping and ~800 ecoregion mapping
+- seasfire_v0.4.zip - original seasfire cube
+- seasfire_filtered.zip - slice of cube (2011-2021)
