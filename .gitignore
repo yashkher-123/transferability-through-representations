@@ -18,6 +18,7 @@ env/
 *.jsonl
 *.nc
 *.zarr
+.zarr/
 
 data/pyromes/
 data/Terrestrial Ecoregions of the World/
