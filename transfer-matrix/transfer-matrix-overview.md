@@ -4,7 +4,7 @@ The transfer matrix will include domain pairs T(i,j) which represents the error 
 
 Everything stored per domain_id -> (scaler, [model1, model2, ...], [train_X, train_y, test_X, test_y])
 
-scalers are fit on the domain's test data.
+scalers are fit on the domain's train data.
 At training, train data X from domain i will be fed through domain i scaler, then used with train data y from domain i to train domain i models
 At inference (creating T), test data X from domain j will be fed through domain i scaler, then fed into domain i model, then evaluated against domain j test data y
 
