@@ -53,18 +53,24 @@ Because of this, I had to create my own set of wildfire domains using the WWF TE
 5. Create 50 wildfire domains through spatially-constrained agglomerative clustering using (mean, std) from the characterizers from the wildfire drivers paper.
     - Now every cell has been mapped to a pyrome and a domain
 6. Select every cell where burned area is nonzero (a fire occurred), and add that cell as a row to a csv.
+7. clean data, prep for creating transfer matrix
 
 
 
 
 data folder files:
+
+
 - clustering.ipynb - agglomerative clustering process
 - agglomeration_clustering_setup.ipynb - get stats per descriptor variable before clustering
 - getting_pyromes_ecoregions.ipynb - map 5 pyromes to each cell
 - subset_generation.ipynb - slice dataset temporally (2011-2021)
+- clean_fire_data.ipynb - imputation/dropping rows. also dropping unnecessary cols
 
 - ecoregions_stats.csv - stats (mean,std) per descriptor variable for each ~800 ecoregion
-- fire_events.csv - each row is a fire (gwis_ba>0) cell in sliced dataset, containing domain/pyrome
+- fire_events.csv - each row is a fire (gwis_ba>0) cell in sliced dataset, containing pyrome only (initial)
+- fire_events_with_domains.csv - added domains to fire dataset
+- fires_clean.csv - cleaned up fire dataset, ready for transfer matrix creation
 
 - domains_map.png - image of all the clustered domains across the globe
 
