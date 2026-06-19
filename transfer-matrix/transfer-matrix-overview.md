@@ -10,11 +10,11 @@ At inference (creating T), test data X from domain j will be fed through domain 
 
 
 The following cols are not being used going further:
-"latitude", "longitude", "time", "pyrome", "ecoregion", "area", "cams_frpfire", "gwis_ba_target", "gwis_ba", "gwis_ba_valid_mask"
+"latitude", "longitude", "time", "pyrome", "ecoregion", "area", "cams_frpfire", "gwis_ba_target", "gwis_ba", "gwis_ba_valid_mask", "lsm"
 - gwis ba is target leakage, the actual target is log_ba
 - lat/lon/time are spatiotemporal indicators, model shouldn't know this
 - pyrome/ecoregion are used for defining/evaluating domain choices, not for training
-- area and mask are satellite indicators
+- area and ba_mask and lsm are satellite indicators
 
 steps:
 1. go from raw fire data to domain-split csvs

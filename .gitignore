@@ -27,3 +27,7 @@ data/seasfire_pyromes_ecoregions.zarr/
 # python cache
 __pycache__/
 *.pyc
+
+# model/data  artifacts
+.joblib
+.pkl
