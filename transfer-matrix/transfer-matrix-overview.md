@@ -16,10 +16,37 @@ The following cols are not being used going further:
 - pyrome/ecoregion are used for defining/evaluating domain choices, not for training
 - area and ba_mask and lsm are satellite indicators
 
+
+final features are as follows:
+fwi_mean	lccs_class_1	lccs_class_2	lccs_class_3	lccs_class_4	lccs_class_6	lccs_class_7	ndvi
+pop_dens	rel_hum	skt	ssr	ssrd	swvl1	swvl2	swvl3	swvl4	t2m_max	t2m_mean	t2m_min	tp	vpd	ws10
+(though for nn, lccs_class2 (forest) was removed to avoid multicolinearity)
+
+
 steps:
 1. go from raw fire data to domain-split csvs
 2. split domains into train/test, X/y
 3. fit scalers per domain
 4. train models on each domain
 5. test models on every domain
-6. generate transfer matrix
+6. generate transfer matrix for each model type
+
+Files:
+xgb_t_creation.ipynb - create transfer matrix for xgboost model
+rf_t_creation.ipynb - create transfer matrix for random forest model
+nn_t_creation.ipynb - create transfer matrix for neural network model
+
+define_domains.ipynb - turn raw giant wildfire csv into distinct domain csvs
+get_splits.ipynb - turn per-domain csvs into train/test X/y
+get_scalers.ipynb - fit and save per-domain scalers to train_X
+
+scalers/ - contains scalers for each domain
+test_X/ - testing feature values for each domain
+test_y/ - testing target values for each domain
+train_X/ - training feature values for each domain
+train_y/ - training target values for each domain
+domain_csvs/ - all wildfire data for each domain
+
+transfer_matrix_spearman_xgb.csv - transfer matrix for xgboost model
+transfer_matrix_spearman_rf.csv - transfer matrix for random forest model
+transfer_matrix_spearman_nn.csv - transfer matrix for neural net model
