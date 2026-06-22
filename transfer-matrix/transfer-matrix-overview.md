@@ -23,6 +23,12 @@ pop_dens	rel_hum	skt	ssr	ssrd	swvl1	swvl2	swvl3	swvl4	t2m_max	t2m_mean	t2m_min	t
 (though for nn, lccs_class2 (forest) was removed to avoid multicolinearity)
 
 
+After making the transfer matrix for xgboost, random forest, and the neural network models, my assupmtion going into it was that there would be strong correlation between matrices since I believed that transferability was mostly domain specific and model agnostic. That was not the case, and instead the highest correlatio between transfer matrices was in-domain performance. Models disagreed on transferability out of domain.
+Because of this, I implemented a weighted avg across matrices to generate a final transfer matix. The weighting per model was determined by performance on the diagonal (most reliabiloity, fits better across domains), and random forest had the highest average spearman correlation across in domain performance.
+
+Weighting is 50% rf, 30% xgboost, 20% neural net
+
+
 steps:
 1. go from raw fire data to domain-split csvs
 2. split domains into train/test, X/y
@@ -32,21 +38,23 @@ steps:
 6. generate transfer matrix for each model type
 
 Files:
-xgb_t_creation.ipynb - create transfer matrix for xgboost model
-rf_t_creation.ipynb - create transfer matrix for random forest model
-nn_t_creation.ipynb - create transfer matrix for neural network model
+- xgb_t_creation.ipynb - create transfer matrix for xgboost model
+- rf_t_creation.ipynb - create transfer matrix for random forest model
+- nn_t_creation.ipynb - create transfer matrix for neural network model
+- t_comparison.ipynb - analyze transfer matrices and construct final one
 
-define_domains.ipynb - turn raw giant wildfire csv into distinct domain csvs
-get_splits.ipynb - turn per-domain csvs into train/test X/y
-get_scalers.ipynb - fit and save per-domain scalers to train_X
+- define_domains.ipynb - turn raw giant wildfire csv into distinct domain csvs
+- get_splits.ipynb - turn per-domain csvs into train/test X/y
+- get_scalers.ipynb - fit and save per-domain scalers to train_X
 
-scalers/ - contains scalers for each domain
-test_X/ - testing feature values for each domain
-test_y/ - testing target values for each domain
-train_X/ - training feature values for each domain
-train_y/ - training target values for each domain
-domain_csvs/ - all wildfire data for each domain
+- scalers/ - contains scalers for each domain
+- test_X/ - testing feature values for each domain
+- test_y/ - testing target values for each domain
+- train_X/ - training feature values for each domain
+- train_y/ - training target values for each domain
+- domain_csvs/ - all wildfire data for each domain
 
-transfer_matrix_spearman_xgb.csv - transfer matrix for xgboost model
-transfer_matrix_spearman_rf.csv - transfer matrix for random forest model
-transfer_matrix_spearman_nn.csv - transfer matrix for neural net model
+- transfer_matrix_spearman_xgb.csv - transfer matrix for xgboost model
+- transfer_matrix_spearman_rf.csv - transfer matrix for random forest model
+- transfer_matrix_spearman_nn.csv - transfer matrix for neural net model
+- transfer_matrix.csv - final compiled transfer matrix
