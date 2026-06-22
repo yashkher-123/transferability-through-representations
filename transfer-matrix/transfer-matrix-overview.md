@@ -24,10 +24,10 @@ pop_dens	rel_hum	skt	ssr	ssrd	swvl1	swvl2	swvl3	swvl4	t2m_max	t2m_mean	t2m_min	t
 
 
 After making the transfer matrix for xgboost, random forest, and the neural network models, my assupmtion going into it was that there would be strong correlation between matrices since I believed that transferability was mostly domain specific and model agnostic. That was not the case, and instead the highest correlatio between transfer matrices was in-domain performance. Models disagreed on transferability out of domain.
-Because of this, I implemented a weighted avg across matrices to generate a final transfer matix. The weighting per model was determined by performance on the diagonal (most reliabiloity, fits better across domains), and random forest had the highest average spearman correlation across in domain performance.
+Because of this, I changed the random seed in each of the model types and remade the 3 transfer matrices. I compared the 2 random forest matrices with each other, the two xgb matrices with each other, and the two neural net matrices with each other to see how random initialization affects the model's view of tansferability. The random forest model's transfer matrices showed the highest correlation between each other, and the neural net transfer matrices showed low orrelation between each other, showing that the random forest measured transferability consistently while the neural net (or xgboost) did not. This is important because the ground truth transfer matrix should not be affected by the chosen model's quirks, and the neural net showed that small changes in the model drastically changed its view on transferability, while the rf stayed consistent. The rf model had ~0.99 correlation for in domain performance, and  ~0.92 correlation for out of domain performance, meaning the randomly seeded models highly agreed on transferability, indicatig that it could make a strong ground truth matrix.
 
-Weighting is 50% rf, 30% xgboost, 20% neural net
 
+To create final transfer matrix, I took the average of the two random forest matrices so that one random seed doesn't dominate.
 
 steps:
 1. go from raw fire data to domain-split csvs
