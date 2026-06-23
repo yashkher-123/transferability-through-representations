@@ -17,7 +17,7 @@ The following cols are not being used going further:
 - area and ba_mask and lsm are satellite indicators
 
 
-final features are as follows:
+### final features are as follows:
 fwi_mean	lccs_class_1	lccs_class_2	lccs_class_3	lccs_class_4	lccs_class_6	lccs_class_7	ndvi
 pop_dens	rel_hum	skt	ssr	ssrd	swvl1	swvl2	swvl3	swvl4	t2m_max	t2m_mean	t2m_min	tp	vpd	ws10
 (though for nn, lccs_class2 (forest) was removed to avoid multicolinearity)
@@ -29,7 +29,7 @@ Because of this, I changed the random seed in each of the model types and remade
 
 To create final transfer matrix, I took the average of the two random forest matrices so that one random seed doesn't dominate.
 
-steps:
+## steps:
 1. go from raw fire data to domain-split csvs
 2. split domains into train/test, X/y
 3. fit scalers per domain
@@ -37,11 +37,12 @@ steps:
 5. test models on every domain
 6. generate transfer matrix for each model type
 
-Files:
+## Files:
 - xgb_t_creation.ipynb - create transfer matrix for xgboost model
 - rf_t_creation.ipynb - create transfer matrix for random forest model
 - nn_t_creation.ipynb - create transfer matrix for neural network model
-- t_comparison.ipynb - analyze transfer matrices and construct final one
+- t_comparison.ipynb - analyze transfer matrices and make draft of final matrix
+- t_analysis.ipynb - differed seeded transfer matrices comparison, made final matrix
 
 - define_domains.ipynb - turn raw giant wildfire csv into distinct domain csvs
 - get_splits.ipynb - turn per-domain csvs into train/test X/y
@@ -57,4 +58,5 @@ Files:
 - transfer_matrix_spearman_xgb.csv - transfer matrix for xgboost model
 - transfer_matrix_spearman_rf.csv - transfer matrix for random forest model
 - transfer_matrix_spearman_nn.csv - transfer matrix for neural net model
-- transfer_matrix.csv - final compiled transfer matrix
+- transfer_matrix.csv - draft compiled transfer matrix from rf, xgb, nn
+- rf_transfer_matrix.csv - final transfer matrix
