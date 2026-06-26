@@ -35,3 +35,12 @@ The way diversity is calculated is using Simpson’s species diversity index, bu
 For fire sparsity, it is meant to encode how much land in a domain gets burned, relative to domain size. It is calculated as (num fire cells)/(total cells), and num fire cells is burned area>0.
 #
 For fire seasonality, this dictates whether most wildfires are concentrated in certain months. This idea was obtained from the Archibald et al paper, and seasonality was one of the features they used. It is defined as “the number of months required to reach 80% of the total average annual burned area” as per the paper’s exact wording. For instance, a value of 3 means that 3 months out of the year contribute to 80% of the fires in a domain.
+#
+Files:
+
+- domain_descriptors.ipynb - identify which features to use for domain descriptors
+- domain_stats_simple.ipynb - get per-domain stats for simple features (mean, std, 90th)
+- domain_stats_complex.ipynb - get per-domain stats for complex features (sparsity, diversity, seasonality)
+
+- simple_domain_stats.csv - mean,std,90th for simple features per-domain
+- domain_descriptions.csv - full dataset of all per-domain stats
