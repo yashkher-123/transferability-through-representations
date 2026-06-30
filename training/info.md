@@ -9,7 +9,23 @@
 Encoder model is an MLP without a formal output layer
 Prediction head is an MLP that outputs predicted transferability
 
-Backwards pass will optimize for making the model predict the correct spearman
+Backwards pass will optimize for making the model predict the correct spearman correlation between source model's predictions and target domain y data.
+
+Model hyperparams:
+After playing around with the hyperparameters of the encoder, I settled on the following:
+- Input layer is dim 33 (domain descriptors)
+- 2 hidden layers, each with 32 nodes
+- Uses dropout of 0.2 (a fifth of neurons are randomly inactivated during training)
+- Output embedding of dim 8
+
+Similarly with the prediction head MLP, I went with this structure:
+- Input layer dim 24 (e_i, e_j, e_i-e_j), the final 8 asymmetrically encode difference
+-2 hidden layers each with 32 nodes
+- No dropout (encoder had it to not overfit representations, head must be precise)
+- Output single value of predicted performance
+Final architecture uses Adam optimizer. 150 epochs and learning rate of 0.0005, batch size 64
+All of this was made using pytorch.
+
 
 #
 Files:
