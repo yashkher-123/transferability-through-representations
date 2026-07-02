@@ -1,0 +1,43 @@
+Results from comparing different models and tools:
+
+All of these results use spearman's correlation with respect to the ground truth rf T
+
+Original encoder model
+Overall:
+Diag:
+Off diag:
+Test overall:
+Test diag:
+Test off diag:
+
+
+Raw distance between normalized domain descriptors
+Diag:
+Off diag:
+Test overall:
+Test diag:
+Test off diag:
+
+
+Model without encoder, purely takes domains+diff as input and predicts performance
+Diag:
+Off diag:
+Test overall:
+Test diag:
+Test off diag:
+
+
+Maximum mean discrepancy
+Diag:
+Off diag:
+Test overall:
+Test diag:
+Test off diag:
+
+
+Wasserstein:
+Diag:
+Off diag:
+Test overall:
+Test diag:
+Test off diag:
