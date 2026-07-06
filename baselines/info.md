@@ -16,5 +16,12 @@ Raw distance calculation: should be done with the 33 feature domain descriptors.
 ## Files:
 - raw_distance.ipynb - generate raw distance T, compare transfer matrix to ground truth
 - rawdist_matrix.csv - transfer matrix generated from raw distance calculations
+
 - no_encoder.ipynb - train a transferability predictor with no encoder
 - no_encoder_predicted_transfer_matrix.csv - non encoder model's transfer matrix
+
+- mmd.ipynb - generate mmd T, surface level comparison to ground truth matrix
+- mmd_transfer_matrix.csv - mmd transfer matrix
+
+- wasserstein.ipynb - generate wasserstein T, surface level comparison to ground truth matrix
+- wasserstein_transfer_matrix.csv - wasserstein transfer matrix
