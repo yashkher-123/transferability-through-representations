@@ -26,9 +26,16 @@ Similarly with the prediction head MLP, I went with this structure:
 Final architecture uses Adam optimizer. 150 epochs and learning rate of 0.0005, batch size 64
 All of this was made using pytorch.
 
+# Versions
+- v1 is encoder same size as prediction head
+- v2 is encoder heavier than prediction head
+- v3 is branched/modular encoder with mlp prediction head
+
+
 
 #
 Files:
 - model.ipynb - training model on transfer matrix and domain descriptors, simple eval
 - transfer_model.pt - pytorch model
 - predicted_transfer_matrix.csv - initial model transfer 34x34 transfer matrix prediction
+
