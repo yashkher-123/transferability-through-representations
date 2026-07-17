@@ -19,6 +19,7 @@ env/
 *.nc
 *.zarr
 *.zarr/
+*.tif
 
 data/pyromes/
 data/Terrestrial Ecoregions of the World/
