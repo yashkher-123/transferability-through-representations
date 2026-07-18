@@ -19,6 +19,9 @@
 # fire branch of encoder recovers pyrome composition well, other branches dilute it
 
 
+# atmosphere branch can recover koppen climate zones well
+
+
 # corr matrix for embedding vs descriptor shows short streaks of high corr
 
 
@@ -26,5 +29,6 @@
 
 
 # complexity tradeoff where decreasing prediction head learnability decreases predictive power, but increases expressiveness of embeddings
+
 
 # no single branch dominates transfer prediction, and the encoder plays around the same influence as bias network on final prediction
