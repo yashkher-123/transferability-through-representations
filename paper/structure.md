@@ -28,5 +28,5 @@
 ## 3.3 Feature attribution
 ## 3.4 Embedding geometry
 ## 3.5 Bias term validation
-## 3.6 Ecological validation via pyromes
+## 3.6 Ecological validation
 ## 3.7 Discussion and limitations
