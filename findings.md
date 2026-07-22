@@ -22,6 +22,9 @@
 # atmosphere branch can recover koppen climate zones well
 
 
+# ground branch able to cluster land classes
+
+
 # corr matrix for embedding vs descriptor shows short streaks of high corr
 
 
@@ -32,3 +35,6 @@
 
 
 # no single branch dominates transfer prediction, and the encoder plays around the same influence as bias network on final prediction
+
+
+# the fire branch plays the biggest role in embedding distance, followed by atmo and then ground
