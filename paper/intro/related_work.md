@@ -7,3 +7,5 @@ Generating a full transfer matrix also requires N models to be trained and N^2 e
 Taking a step back, one way to sidestep the 'model dependent' nature of a transfer matrix is through unsupervised domain adaptation. Existing feature discrepancy methods like mean maximum discrepancy or wasserstein distance are a proxy for transferability by measuring feature similarity between domains. This has been not only been disproven to be a strong measure of transferability, but it also assumes symmetric transfer due to feature distance being a symmetric measure.
 
 Tools like Domain2Vec predict feature transferability specifically for image data. There has not been a generalized framework for predicting domain transferability using tabular data. This paper attempts to apply a generalizable framework to wildfires, though these same ideas can be reused for globally heterogenous environmental processes such as flodding and drought prediction.
+
+Wildfire Genome and GEOSPOT

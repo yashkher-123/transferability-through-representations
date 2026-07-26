@@ -9,4 +9,6 @@ Spatial generalization is treated as a post-hoc check, seeing whether a model tr
 
 Existing methods to measure and predict transferability between domains utilized unsupervised domain adaptation, often through feature discrepancy. This assumes symmetric transfer, where transfer from one domain to another will work equally well in reverse. This is possible due to one domain being a subset of another domain's environmental conditions, in which the 'contained' domain's model has to extrapolate to conditions of the 'outer' domain, while the outer domain simply has to interpolate within its own subset.
 
+Transfer matrices have been used as an approach, but they simply use it as a tool for analysis rather than a supervised signal.
+
 This paper addresses the supervised prediction of fire regime transferability without the need to actually train and deploy models on either regime.
