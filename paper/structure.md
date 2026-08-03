@@ -9,9 +9,8 @@
 ## 2.1 Problem formulation
 ## 2.2 Domain definition and transfer matrix construction
 ## 2.3 Matrix analysis
-## 2.4 Representation space (descriptors, branches)
+## 2.4 Domain descriptors setup
 ## 2.5 Encoder architecture progression
-
 ### 2.5.1 v1 (flat)
 ### 2.5.2 v2 (encoder-heavy)
 ### 2.5.3 v3 (modular/branched)
@@ -23,10 +22,9 @@
 
 # 3. Results
 
-## 3.1 Predictive performance across iterations
+## 3.1 Baselines
 ## 3.2 Architecture progression analysis
 ## 3.3 Feature attribution
-## 3.4 Embedding geometry
 ## 3.5 Bias term validation
 ## 3.6 Ecological validation
-## 3.7 Discussion and limitations
+## 3.7 Discussion, Conclusion, and limitations
