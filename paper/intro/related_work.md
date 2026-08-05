@@ -8,4 +8,4 @@ Taking a step back, one way to sidestep the 'model dependent' nature of a transf
 
 Tools like Domain2Vec predict feature transferability specifically for image data. There has not been a generalized framework for predicting domain transferability using tabular data. This paper attempts to apply a generalizable framework to wildfires, though these same ideas can be reused for globally heterogenous environmental processes such as flodding and drought prediction.
 
-Wildfire Genome and GEOSPOT are systems that also generate soemthing along the lines of a transfer matrix, so does sangiorini (mispell) et al. but they nevr specifically train on the transfer matrix, let alone generate environmental embedddings because of it.
+Wildfire Genome and GEOSPOT are systems that also generate soemthing along the lines of a transfer matrix, so does sangiorini (mispell) et al. but they nevr specifically train on the transfer matrix, let alone generate environmental embedddings from it.
