@@ -9,3 +9,5 @@ i found that the average row maximum (disregarding the diagonal) was 0.25, which
 a histogram of the transfer matrix values, colored by on diag or off diag values, show that the on/off diag values individually form normal distributions, where the distribution of the on diag values lie on the right tail of the off diag distribution.
 
 i also made a graph of a heatmap of the transfer matrix, where higher transfer values are indicated by a deeper red hue. there is a clear line of deep red cells along the diagonal of the transfer matrix, which clearly shows the discrepancy between on and off diagonal matrix values.
+
+this transfer matrix represents the target for the future transferability prediction model. the model is meant to take the descriptors for two domains as input, and output how well the source model will transfer into the target domain.
