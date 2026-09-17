@@ -34,3 +34,52 @@ rather than attempting to encourage or hope for the learnable prediction head to
 ## main notes:
 
 as model iterations progressed, model performance decreased while representation strength increased. 
+
+
+
+
+
+
+
+
+
+~~
+2.5 Encoder architecture progression
+
+The transferability model takes the domain descriptors of a source and target domain as input and predicts the transferability of a wildfire model trained on the source domain and applied to the target domain. In addition to predictive accuracy, the model is designed to produce interpretable domain representations. A useful representation should encode environmental structure that is relevant to transferability, allowing both the overall drivers of transferability and the factors underlying individual source-target predictions to be examined.
+
+The transferability model was developed through four successive architectures. Across iterations, the architecture was progressively constrained to place more of the predictive structure in the domain embeddings and less in the prediction head. Model loss curves and prediction distributions were monitored throughout training. For all iterations, training loss remained below test loss, consistent with a generalization gap, but test loss did not increase during training, providing no indication of conventional overfitting. Prediction histograms were compared with the empirical transfer matrix distribution to verify that the model did not collapse toward the mean and instead reproduced variation in transferability. Early stopping was used when training loss plateaued. Dropout and mini-batch training were used throughout to regularize the comparatively high-capacity models relative to the number of training samples.
+
+v1
+
+The first architecture separated representation learning from transfer prediction. Rather than processing the source and target descriptors jointly, a shared encoder processed each domain independently to produce a domain embedding. The source and target embeddings were then concatenated with their element-wise difference and passed to a prediction head.
+
+Both the encoder and prediction head were multilayer perceptrons with the same depth and width. Dropout was applied to the encoder to encourage representations that were less dependent on individual input features, while the prediction head remained unregularized to preserve its ability to model the transfer relationship. The encoder produced an 8-dimensional embedding for each domain. Concatenating the source embedding, target embedding, and their difference produced a 24-dimensional input to the prediction head, which output the predicted transferability.
+
+This architecture can represent asymmetric transfer because the prediction head receives the ordered source and target representations rather than only a symmetric distance between them. Reversing domains (i) and (j) reverses the sign of the difference vector, producing a different input to the prediction head and therefore allowing different predictions for (i \rightarrow j) and (j \rightarrow i).
+
+v2
+
+The second architecture shifted model capacity from the prediction head into the encoder. The encoder was expanded by increasing its depth and width, while the prediction head was reduced in complexity. This placed greater capacity in the domain representations themselves rather than allowing the prediction head to compensate for weaker embeddings.
+
+The resulting representations were empirically stronger, but this improvement was accompanied by a marginal decrease in predictive performance. This established an early tradeoff between the quality of the learned domain representation and the accuracy of the final transferability prediction.
+
+v3
+
+The third architecture introduced explicit structure into the domain representation to improve interpretability. The flat encoder was replaced with three separate branches corresponding to atmospheric conditions, ground conditions, and fire behavior. The domain descriptor vector was partitioned according to these subsystems, and each branch independently produced a 3-dimensional embedding. The three branch embeddings were concatenated to form a 9-dimensional representation for each domain.
+
+This structure allows differences between source and target domains to be examined at the subsystem level. For a given source-target pair, the separation between the atmospheric, ground, and fire-behavior embeddings can indicate which subsystem contributes most strongly to the predicted transfer relationship. The branched structure also restricts interactions between variables assigned to different subsystems, providing an architectural form of regularization and reducing the ability of the encoder to represent arbitrary cross-subsystem interactions.
+
+After training, the embeddings were more expressive, and the correlation between embedding distance and transfer quality increased relative to the previous architectures. This improvement in representation strength again coincided with a marginal decrease in predictive performance.
+
+v4
+
+The fourth architecture explicitly imposed the intended geometric interpretation of the embedding space. In the previous architectures, the prediction head remained free to learn the relationship between the two embeddings. Consequently, the prediction head could compensate for weak or poorly organized representations rather than requiring transferability to be encoded directly in the embedding geometry. V4 replaced this learnable prediction head with a deterministic distance-based function.
+
+The source and target embeddings are compared using squared Euclidean distance. The distance is negated so that larger predicted values correspond to smaller embedding distances and therefore stronger transferability. Squaring the distance makes the function differentiable when the two embeddings coincide and changes the gradient contribution of larger distances while preserving the ordering of distances. The resulting term directly enforces the intended geometric interpretation: domains predicted to transfer well must occupy nearby locations in the embedding space, while domains predicted to transfer poorly must be separated.
+
+A symmetric Euclidean distance alone, however, cannot represent asymmetric transfer. To preserve directionality, V4 includes a separate bias network. The bias network receives the domain descriptor vector and produces two scalar values, representing the domain's source bias and target bias. During a forward pass, the source descriptor is processed by both the branched encoder and the bias network to produce its embedding and its two directional biases. The same process is applied to the target descriptor.
+
+For a source domain (i) and target domain (j), the prediction is formed from the negated squared Euclidean distance between their embeddings, plus the source bias associated with domain (i) and the target bias associated with domain (j). The opposite directional biases are not used in that particular prediction, so they receive no gradient from that forward pass. They become active when the corresponding domain appears in the opposite role in another source-target pair. This allows the same domain to have different effects depending on whether it is acting as a source or target while retaining a shared representation of its environmental structure.
+
+Across the four architectures, a pattern emerged: predictive performance declined as the domain representations became more constrained and increasingly informative about transferability. In parallel, representation strength increased, as reflected by stronger relationships between embedding structure and empirical transfer quality. This tradeoff indicates that predictive accuracy and representation quality were not equivalent objectives for the transferability model, motivating the explicit geometric constraints introduced in V4.
